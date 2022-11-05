@@ -1,5 +1,7 @@
 import { useState, useEffect, useReducer  } from "react";
 import Card from "../../UI/Card"
+import Input from "../../UI/partial/Input";
+
 const Login = (props) => {
 // const [Username, setUsername] = useState("")
 // const [Password, setPassword] = useState("")
@@ -99,14 +101,9 @@ return (
 <Card className="border-success text-white bg-dark  border-2" >
 <h4 className="card-title fs-5 text-capitalize mb-2 text-end">Hi, welcome back</h4>
 <form className="" onSubmit={submitHandler}>
-<div className="mb-3">
-  <label htmlFor="">Username</label>
-  <div className="col">
-  <input type="text"
-    className={`form-control border-1 rounded-0 ${emailInput.isValid === false ? 'border-danger' : 'border-success'}`} onChange={usernameHandler}   value={emailInput.value} id="" aria-describedby="helpId" placeholder="username" />
-  <small id="helpId" className="form-text text-muted">Username should include "_example"</small>
-  </div>
-</div>
+<Input
+  title={`Username`} info={`Username should include "_example"`} isValid={emailInput.isValid} onChange={usernameHandler}  value={emailInput.value} holder={`Username`}
+/>
 
 <div className="mb-3">
   <label htmlFor="">Password</label>

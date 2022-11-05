@@ -1,7 +1,9 @@
-import { Fragment} from "react";
-
+import { Fragment, useContext } from "react";
+import authContext from "../../context/AuthContext";
 const Navbar = (props) => {
-const home = (event) => {
+const ctx = useContext(authContext)
+
+    const home = (event) => {
     event.preventDefault();
     props.homeView(false)
 }
@@ -18,9 +20,8 @@ const userProfile = (event) => {
 
 const logout = (event) => {
     event.preventDefault();
-    props.logOUt(false)
+    ctx.logOut(false)
 }
-const auth = props.isAuth
     return(
     <Fragment>
 
@@ -28,12 +29,12 @@ const auth = props.isAuth
     <li className="nav-item">
         <a href="#a" className="nav-link active" onClick={home}>home</a>
     </li>
-    { auth &&
+    { ctx.isAuthenticated &&
     (<li className="nav-item">
         <a href="#a" className="nav-link" onClick={userProfile}>dashboard</a>
     </li>)
      }
-     { !auth ?
+     { !ctx.isAuthenticated ?
        
     (<li className="nav-item">
         <a href="#a" className="nav-link" onClick={login}>login</a>

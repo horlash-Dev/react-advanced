@@ -6,6 +6,7 @@ import Navbar from './UI/partial/Navbar'
 import Home from './component/Home'
 import Dashboard from './component/dashboard/Dashboard'
 import Login from './component/auth/Login'
+import authContext from './context/AuthContext';
 
 function App() {
   const [Homepage, setHomepage] = useState(false)
@@ -33,7 +34,6 @@ const onLoginView = (data) => {
 
 const onlogOut = (data) => {
   setLoginPage(data)
-  console.log(data);
   setAuthenticated(data)
   setuserDashboard(data)
   setHomepage(data)
@@ -60,10 +60,18 @@ const loginHandler = () => {
 const onActive = false
   return (
     <Main>
-  <Navbar loginView={onLoginView} homeView={onHomeView} navActive={onActive} profileView={onProfileView} logOUt={onlogOut} isAuth={isAuthenticated} />
-  { !Homepage && (<Home isActive={!Homepage} />) }
+  <authContext.Provider 
+  value={{
+    isAuthenticated: isAuthenticated,
+    logOut: onlogOut
+  }}
+  >
+
+  <Navbar loginView={onLoginView} homeView={onHomeView} navActive={onActive} profileView={onProfileView}  />
+  { !Homepage && (<Home />) }
   { LoginPage && (<Login onLogin={loginHandler} />) }
  {userDashboard && <Dashboard/>}
+ </authContext.Provider>
     </Main>
   );
 }
