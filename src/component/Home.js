@@ -1,6 +1,12 @@
-
+import { useEffect } from "react"
 import Card from "../UI/Card"
 const Home = (props) => {
+  const {onActive} = props
+  useEffect(() => {
+    return () => {
+      onActive('1')
+    };
+  }, [onActive])
 return (
 <Card className="border-light text-white bg-dark text-center border-2" >
 <div className="card-body">

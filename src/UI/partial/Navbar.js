@@ -1,5 +1,6 @@
 import { Fragment, useContext } from "react";
 import authContext from "../../context/AuthContext";
+import NavItem from "./NavItem";
 const Navbar = (props) => {
 const ctx = useContext(authContext)
 
@@ -25,23 +26,15 @@ const logout = (event) => {
     return(
     <Fragment>
 
-   <ul className="nav nav-pills nav-stacked">
-    <li className="nav-item">
-        <a href="#a" className="nav-link active" onClick={home}>home</a>
-    </li>
+   <ul className="nav nav-pills nav-stacked justify-content-center m-4 text-capitalize">
+    <NavItem id={'1'} navActive={props.navActive} name={`home`} onClick={home} />
     { ctx.isAuthenticated &&
-    (<li className="nav-item">
-        <a href="#a" className="nav-link" onClick={userProfile}>dashboard</a>
-    </li>)
+    (<NavItem id={'2'} navActive={props.navActive} name={`dashboard`} onClick={userProfile} />)
      }
      { !ctx.isAuthenticated ?
        
-    (<li className="nav-item">
-        <a href="#a" className="nav-link" onClick={login}>login</a>
-    </li>) :
-   (<li className="nav-item">
-        <a href="#a" className="nav-link" onClick={logout}>logout</a>
-    </li> )
+    ( <NavItem id={'3'} navActive={props.navActive} name={`login`} onClick={login} />) :
+   (<NavItem id={'4'} name={'logout'}  navActive={props.navActive} onClick={logout} /> )
      }
 </ul>
         </Fragment>

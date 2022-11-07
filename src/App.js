@@ -12,23 +12,18 @@ function App() {
   const [Homepage, setHomepage] = useState(false)
   const [LoginPage, setLoginPage] = useState(false)
   const [userDashboard, setuserDashboard] = useState(false)
-  const [isAuthenticated, setAuthenticated] = useState(false)
+  const [isAuthenticated, setAuthenticated] =useState(false)
+  const [isActive, setisActive] = useState('')
 
   useEffect(() => {
     const getAuth = localStorage.getItem('isAuth')
     if (getAuth === '1') {
       loginHandler()
     }
-    console.log('well');
-    
-    return () => {
-      console.log('....');
-    };
   }, [])
 
 const onLoginView = (data) => {
   setLoginPage(data)
-  console.log(data);
   setHomepage(data)
 }
 
@@ -57,7 +52,9 @@ const loginHandler = () => {
   setLoginPage(false)
   setHomepage(true)
 }
-const onActive = false
+const onActive = (data) => {
+setisActive(data)
+}
   return (
     <Main>
   <authContext.Provider 
@@ -67,10 +64,10 @@ const onActive = false
   }}
   >
 
-  <Navbar loginView={onLoginView} homeView={onHomeView} navActive={onActive} profileView={onProfileView}  />
-  { !Homepage && (<Home />) }
-  { LoginPage && (<Login onLogin={loginHandler} />) }
- {userDashboard && <Dashboard/>}
+  <Navbar loginView={onLoginView} homeView={onHomeView} navActive={isActive} profileView={onProfileView}  />
+  { !Homepage && (<Home onActive={onActive} />) }
+  { LoginPage && (<Login onLogin={loginHandler}  onActive={onActive} />) }
+ {userDashboard && <Dashboard onActive={onActive}/>}
  </authContext.Provider>
     </Main>
   );

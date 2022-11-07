@@ -52,18 +52,18 @@ const [passwordInput, dispatchPassword] = useReducer(passwordAction,{ value: '',
 
 const {isValid: emailValidity } = emailInput
 const {isValid: passValidity } =  passwordInput
+const {onActive} = props
 
 useEffect(() => {
 const timeout = setTimeout(() => {
-  console.log("form init");
   setFormValidity(emailValidity && passValidity)
 }, 1000);
 
 return () => {
   clearTimeout(timeout)
-  console.log('form_');
+  onActive('3')
 }
-}, [emailValidity, passValidity])
+}, [emailValidity, passValidity,onActive])
 
 const usernameHandler = (e) => {
  // for both useeffect and usestate => setUsername(e.target.value) 
@@ -92,7 +92,8 @@ const passwordHandler = (e) => {
 
     localStorage.setItem('isAuth', '1')
     localStorage.setItem('auth_user', emailInput.value)
-    localStorage.setItem('time', Date())
+   let time = new Date()
+    localStorage.setItem('time', time)
     props.onLogin()
     }
     return;
@@ -109,14 +110,14 @@ return (
   <label htmlFor="">Password</label>
   <div className="col">
   <input type="text"
-    className={`form-control border-1 rounded-0 ${passwordInput.isValid === false ? 'border-danger' : 'border-success'}`} onChange={passwordHandler}  value={passwordInput.value} aria-describedby="helpId" placeholder="Password" />
+    className={`form-control border-1 shadow-none rounded-0 ${passwordInput.isValid === false ? 'border-danger' : 'border-success'}`} onChange={passwordHandler}  value={passwordInput.value} aria-describedby="helpId" placeholder="Password" />
   <small id="helpId" className="form-text text-muted">Password must be greater than 4 characters</small>
   </div>
 </div>
 <div className="mb-1 text-center">
  
   <input type="submit"
-    className={`btn btn-success shadow btn-md border-0 rounded-0 ${!FormValidity ? 'disabled': ''}`} name="" id="" aria-describedby="helpId" placeholder="" />
+    className={`btn btn-success shadow btn-md border-0 rounded-5 ${!FormValidity ? 'disabled': ''}`} name="" id="" aria-describedby="helpId" placeholder="" />
   </div> 
 </form>
 </Card>
